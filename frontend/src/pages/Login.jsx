@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { loginUser } from "../api/auth";
 
-function Login(){
+function Login({onLoginSuccess}){
     const [username,setUsername]=useState("");
     const [password,setPassword]=useState("");
 
@@ -9,6 +9,7 @@ function Login(){
         try{
             const res=await loginUser({username,password});
             localStorage.setItem("token",res.data.token);
+            onLoginSuccess();
             alert("Login Successful");
         }
         catch(err){
