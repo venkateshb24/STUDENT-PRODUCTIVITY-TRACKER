@@ -1,22 +1,38 @@
-import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import { getToken } from "./utils/auth";
+import ProtectedRoute from "./components/protectedRoute";
+import { isLoggedIn } from "./utils/auth";
 
 function App() {
-  const [isAuth,setIsAuth]=useState(false);
-
-  useEffect(()=>{
-    const token=getToken();
-    if(token){
-      setIsAuth(true);
-    }
-  },[]);
-
   return (
-    <div>
-      {isAuth ? <Dashboard /> : <Login onLoginSuccess={() => setIsAuth(true)} />}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route 
+          path="/"
+          element={
+            isLoggedIn()?<Navigate to="/dashboard"/>:<Navigate to="/register"/>
+          }
+        />
+
+        <Route path="/register" element={<Register />}/>
+
+        <Route 
+          path="/login"
+          element={isLoggedIn()?<Navigate to="/dashboard"/>:<Login />}
+        />
+
+        <Route 
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard/>
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
