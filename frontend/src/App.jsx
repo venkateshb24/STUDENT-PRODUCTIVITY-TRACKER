@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/protectedRoute";
 import { isLoggedIn } from "./utils/auth";
+import Landing from "./pages/Landing";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Route 
           path="/"
           element={
-            isLoggedIn()?<Navigate to="/dashboard"/>:<Navigate to="/register"/>
+            isLoggedIn()?<Navigate to="/dashboard"/>:<Landing/>
           }
         />
 
