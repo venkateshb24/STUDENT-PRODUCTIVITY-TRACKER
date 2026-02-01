@@ -8,32 +8,34 @@ import Landing from "./pages/Landing";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route 
-          path="/"
-          element={
-            isLoggedIn()?<Navigate to="/dashboard"/>:<Landing/>
-          }
-        />
+    <div style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>
+      <BrowserRouter>
+        <Routes>
+          <Route 
+            path="/"
+            element={
+              isLoggedIn()?<Navigate to="/dashboard"/>:<Landing/>
+            }
+          />
 
-        <Route path="/register" element={<Register />}/>
+          <Route path="/register" element={<Register />}/>
 
-        <Route 
-          path="/login"
-          element={isLoggedIn()?<Navigate to="/dashboard"/>:<Login />}
-        />
+          <Route 
+            path="/login"
+            element={isLoggedIn()?<Navigate to="/dashboard"/>:<Login />}
+          />
 
-        <Route 
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard/>
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+          <Route 
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard/>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
