@@ -91,7 +91,7 @@ const styles={
         flexWrap:"wrap",
     },
     featureCard:{
-        border:"1px solid #e2e8f0",
+        border:"1px solid #bec8d4",
         borderRadius:"8px",
         padding:"20px",
         width:"250px",
