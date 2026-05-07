@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  --bg: #0d1117; --surface: #161b22; --surface2: #1c2333;
+  --border: rgba(255,255,255,0.08); --accent: #f97316;
+  --text: #e6edf3; --muted: #7d8590;
+  --font: 'Outfit', sans-serif; --mono: 'JetBrains Mono', monospace;
+}
+
+.page-header { margin-bottom: 24px; }
+.page-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; color: var(--text); font-family: var(--font); }
+.page-sub   { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+
+/* ── YOUR RANK CARD ── */
+.your-rank-card {
+  background: linear-gradient(135deg, var(--surface2) 0%, #1a2236 100%);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 24px;
+}
+
+.yr-left { min-width: 120px; }
+.yr-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+.yr-rank  { font-size: 2rem; font-weight: 800; font-family: var(--mono); }
+.yr-rank-num { font-size: 1.2rem; color: var(--muted); }
+
+.yr-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--border);
+  margin: 0 28px;
+}
+
+.yr-stat { text-align: center; }
+.yr-stat-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.yr-stat-val   { font-size: 1.3rem; font-weight: 700; font-family: var(--mono); color: var(--text); }
+
+/* ── LEADERBOARD TABLE ── */
+.lb-table {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.lb-header-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 120px 120px 120px 100px 100px;
+  padding: 12px 20px;
+  background: var(--surface2);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.lb-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 120px 120px 120px 100px 100px;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.lb-row:last-child { border-bottom: none; }
+.lb-row:hover { background: rgba(255,255,255,0.02); }
+
+/* highlight current user */
+.lb-row--you {
+  background: rgba(249,115,22,0.06);
+  border-left: 3px solid var(--accent);
+}
+.lb-row--you:hover { background: rgba(249,115,22,0.09); }
+
+/* top 3 rows slightly brighter */
+.lb-row--top3 .lb-name { font-weight: 700; }
+
+.lb-rank     { font-size: 1.1rem; font-family: var(--mono); }
+.lb-name     { font-size: 0.9rem; font-weight: 500; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.lb-streak   { font-size: 0.875rem; font-family: var(--mono); color: #22d3ee; }
+.lb-problems { font-size: 0.875rem; font-family: var(--mono); color: #4ade80; }
+.lb-hours    { font-size: 0.875rem; font-family: var(--mono); color: var(--muted); }
+.lb-planner  { font-size: 0.875rem; font-family: var(--mono); color: #facc15; }
+.lb-quiz     { font-size: 0.875rem; font-family: var(--mono); color: #c084fc; }
+.lb-unit     { font-size: 0.72rem; color: var(--muted); }
+
+/* "You" tag next to username */
+.you-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(249,115,22,0.12);
+  border: 1px solid rgba(249,115,22,0.25);
+  padding: 1px 7px;
+  border-radius: 99px;
+}
+
+.lb-empty {
+  text-align: center;
+  padding: 40px;
+  color: var(--muted);
+  font-size: 0.875rem;
+}

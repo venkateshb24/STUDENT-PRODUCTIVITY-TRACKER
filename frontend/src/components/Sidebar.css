@@ -1,0 +1,124 @@
+/* Sidebar.css */
+/* PURPOSE: Layout and styling for the sidebar + main content area */
+
+/* ── GOOGLE FONTS ── */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+/* ── CSS VARIABLES ── */
+:root {
+  --sidebar-bg:    #0f1117;
+  --sidebar-width: 220px;
+  --main-bg:       #0d1117;
+  --border:        rgba(255,255,255,0.07);
+  --accent:        #f97316;
+  --accent-glow:   rgba(249,115,22,0.12);
+  --text:          #e6edf3;
+  --muted:         #7d8590;
+  --nav-hover:     rgba(255,255,255,0.05);
+  --font:          'Outfit', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); }
+
+/* Full page is a row: [sidebar | main content] */
+.layout { display: flex; min-height: 100vh; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 12px;
+  position: fixed;
+  top: 0; left: 0;
+  height: 100vh;
+  z-index: 100;
+}
+
+.sidebar-logo { display: flex; align-items: center; gap: 10px; padding: 0 8px; margin-bottom: 28px; }
+.logo-text    { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+.logo-accent  { color: var(--accent); }
+
+/* flex:1 pushes profile button to the bottom */
+.sidebar-nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px; border-radius: 8px;
+  text-decoration: none; color: var(--muted);
+  font-size: 0.85rem; font-weight: 500;
+  transition: all 0.15s; border: 1px solid transparent;
+}
+.nav-item:hover { background: var(--nav-hover); color: var(--text); }
+.nav-item--active { background: var(--accent-glow); color: var(--accent); border-color: rgba(249,115,22,0.2); }
+.nav-icon  { flex-shrink: 0; font-size: 1rem; }
+.nav-label { font-size: 0.85rem; }
+
+/* Profile section sits at bottom */
+.profile-section { position: relative; margin-top: 8px; }
+
+.profile-btn {
+  width: 100%; display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px; background: transparent;
+  border: 1px solid var(--border); border-radius: 10px;
+  cursor: pointer; font-family: var(--font);
+  color: var(--muted); transition: all 0.15s;
+}
+.profile-btn:hover { background: var(--nav-hover); color: var(--text); }
+
+.profile-avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--accent); color: #0d1117;
+  font-size: 0.75rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.profile-name {
+  flex: 1; font-size: 0.82rem; font-weight: 500;
+  text-align: left; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Popup appears ABOVE the profile button */
+.profile-popup {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0; right: 0;
+  background: #1c2333;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px; padding: 12px;
+  z-index: 200;
+}
+
+.popup-user     { display: flex; align-items: center; gap: 10px; padding-bottom: 10px; }
+.popup-avatar   { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #0d1117; font-size: 0.85rem; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.popup-username { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+.popup-role     { font-size: 0.7rem; color: var(--muted); }
+.popup-divider  { height: 1px; background: var(--border); margin-bottom: 8px; }
+
+.popup-logout {
+  width: 100%; display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; background: transparent; border: none;
+  border-radius: 7px; color: #f87171; font-size: 0.82rem;
+  cursor: pointer; font-family: var(--font);
+}
+.popup-logout:hover { background: rgba(248,113,113,0.1); }
+
+/* Main content pushed right so sidebar doesn't cover it */
+.main-content {
+  margin-left: var(--sidebar-width);
+  flex: 1; background: var(--main-bg);
+  min-height: 100vh; padding: 36px 40px;
+}
+
+/* Mobile: collapse sidebar to icons only */
+@media (max-width: 768px) {
+  .sidebar      { width: 60px; padding: 20px 8px; }
+  .logo-text    { display: none; }
+  .nav-label    { display: none; }
+  .profile-name { display: none; }
+  .main-content { margin-left: 60px; }
+}

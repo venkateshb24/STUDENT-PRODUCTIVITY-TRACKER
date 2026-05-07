@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+/* ── SHARED AUTH STYLES ─────────────────────────────────
+   Used by both Login.jsx and Register.jsx
+   Both pages import this same file — no duplication
+──────────────────────────────────────────────────────── */
+
+:root {
+  --bg:      #0d1117;
+  --surface: #161b22;
+  --border:  rgba(255, 255, 255, 0.08);
+  --green:   #22c55e;
+  --text:    #e6edf3;
+  --muted:   #7d8590;
+  --font:    'DM Sans', sans-serif;
+  --error:   #f87171;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Full page centered layout */
+.auth-page {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── TOP BAR WITH LOGO ── */
+.auth-topbar {
+  width: 100%;
+  padding: 18px 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.auth-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+
+.logo-accent { color: var(--green); }
+
+/* ── AUTH CARD ── */
+/* The white (well, dark) box in the center */
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 60px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px 32px;
+}
+
+.auth-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  margin-bottom: 6px;
+}
+
+.auth-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+/* ── FORM ── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Each label + input pair */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.field-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.field-input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 0.9rem;
+  color: var(--text);
+  font-family: var(--font);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+/* highlight border when user clicks into field */
+.field-input:focus {
+  border-color: var(--green);
+}
+
+.field-input::placeholder {
+  color: #374151;
+}
+
+/* ── SUBMIT BUTTON ── */
+.auth-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--green);
+  color: #0d1117;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font);
+  margin-top: 6px;
+  transition: opacity 0.15s;
+}
+
+.auth-btn:hover { opacity: 0.88; }
+
+/* greyed out when disabled (loading state) */
+.auth-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── FOOTER TEXT ── */
+/* "Don't have an account? Register" */
+.auth-footer-text {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: 20px;
+}
+
+.auth-link {
+  color: var(--green);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-link:hover { text-decoration: underline; }

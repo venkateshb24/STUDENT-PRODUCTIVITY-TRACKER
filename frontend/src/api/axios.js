@@ -3,7 +3,7 @@ import { getToken } from "../utils/auth";
 import { logout } from "../utils/auth";
 
 const api=axios.create({
-    baseURL:"http://localhost:3000",
+    baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000",
 });
 
 api.interceptors.request.use((config)=>{

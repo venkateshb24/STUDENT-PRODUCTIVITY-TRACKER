@@ -1,0 +1,55 @@
+/* ============================================================
+   Spinner.css
+   A spinning loading circle shown while data loads from the API.
+
+   HOW THE SPIN WORKS:
+   - We draw a circle using border (CSS trick)
+   - Make one side of the border a different color
+   - Rotate it forever using @keyframes animation
+   - Result = a spinner!
+   ============================================================ */
+
+/* Wrapper — centers the spinner in the middle of the page */
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;  /* center horizontally */
+  align-items: center;      /* center vertically */
+  height: 300px;            /* take up some space so it looks centered */
+  width: 100%;
+}
+
+/* Smaller version for small areas */
+.spinner-wrapper--small {
+  height: 80px;
+}
+
+/* ── THE SPINNER ITSELF ────────────────────────────────────
+   It's just a div with:
+   - transparent border on 3 sides
+   - orange border on 1 side (the "moving" part you see)
+   - border-radius: 50% makes it a circle
+   - animation: spin makes it rotate forever
+   ────────────────────────────────────────────────────────── */
+.spinner {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;                      /* makes the square into a circle */
+  border: 3px solid rgba(249,115,22,0.15); /* faint orange ring (background) */
+  border-top-color: #f97316;               /* solid orange on TOP only = spinning part */
+  animation: spin 0.7s linear infinite;   /* spin forever, 0.7s per rotation */
+}
+
+/* Smaller spinner for .spinner-wrapper--small */
+.spinner-wrapper--small .spinner {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+/* ── SPIN ANIMATION ─────────────────────────────────────────
+   rotate(0deg) to rotate(360deg) = one full rotation
+   ────────────────────────────────────────────────────────── */
+@keyframes spin {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}

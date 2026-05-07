@@ -1,102 +1,191 @@
-import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
+import "./Landing.css";
 
-function Landing(){
-    const navigate=useNavigate();
-
-    return(
-        <>
-            <Navbar />
-
-            <div style={styles.container}>
-                <h1 style={styles.title}>Track Your Daily Productivity</h1>
-                <p style={styles.subtitle}>
-                    Log DSA problems, study hours, and notes — all in one place.
-                </p>
-
-                <button style={styles.button} onClick={()=>navigate("/register")}>Get Started</button>
-            </div>
-
-            <div style={styles.features}>
-                <h2 style={styles.featuresTitle}>Why StudyTracker?</h2>
-
-                <div style={styles.featuresGrid}>
-                    <div style={styles.featureCard}>
-                        <h3>📊 Daily Productivity Logs</h3>
-                        <p>Track DSA problems, study hours, and notes every day.</p>
-                    </div>
-                    
-                    <div style={styles.featureCard}>
-                        <h3>🔐 Secure Authentication</h3>
-                        <p>JWT-based login keeps your data safe and private.</p>
-                    </div>
-
-                    <div style={styles.featureCard}>
-                        <h3>📅 Auto Daily Updates</h3>
-                        <p>No duplicate logs — update today’s progress anytime.</p>
-                    </div>
-                </div>
-            </div>
-
-            <Footer/>
-        </>
-    );
+// ── LOGO SVG ────────────────────────────────────────────
+// Reusable so we use it in both navbar and footer
+function Logo({ size = 30 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 36 36" fill="none">
+      <rect width="36" height="36" rx="9" fill="#22c55e"/>
+      <polyline
+        points="6,26 13,18 20,22 30,10"
+        stroke="#0d1117" strokeWidth="2.8"
+        strokeLinecap="round" strokeLinejoin="round"
+        fill="none"
+      />
+      <circle cx="30" cy="10" r="2.5" fill="#0d1117"/>
+    </svg>
+  );
 }
 
-const styles={
-    container:{
-        height:"90vh",
-        display:"flex",
-        flexDirection:"column",
-        justifyContent:"center",
-        alignItems:"center",
-        textAlign:"center",
-        backgroundColor:"#f8fafc",
-        fontFamily:"Arial, Helvetica, sans-serif",
-    },
-    title:{
-        fontSize:"2.5rem",
-        marginBottom:"10px",
-    },
-    subtitle:{
-        fontSize:"1.1rem",
-        color:"#475569",
-        marginBottom:"30px",
-        maxWidth:"500px",
-    },
-    button:{
-        padding:"12px 24px",
-        fontSize:"1rem",
-        backgroundColor:"#2563eb",
-        color:"white",
-        border:"none",
-        borderRadius:"6px",
-        cursor:"pointer",
-    },
-    features:{
-        padding:"60px 20px",
-        backgroundColor:"#ffffff",
-        textAlign:"center",
-        fontFamily:"Arial, Helvetica, sans-serif",
-    },
-    featuresTitle:{
-        fontSize:"2rem",
-        marginBottom:"30px",
-    },
-    featuresGrid:{
-        display:"flex",
-        gap:"20px",
-        justifyContent:"center",
-        flexWrap:"wrap",
-    },
-    featureCard:{
-        border:"1px solid #bec8d4",
-        borderRadius:"8px",
-        padding:"20px",
-        width:"250px",
-        backgroundColor:"#f9fafb",
-    },
-};
+// ── STREAK CALENDAR ──────────────────────────────────────
+// On landing page this is just a demo with fake logged days
+// The real one in Dashboard will use actual API data
+function CalendarPreview() {
+  // fake data just for the landing page visual
+  const loggedDays = [1,2,4,5,6,8,9,10,11,13,14,15,17,18,19,20,21,22];
+  const today = new Date().getDate();
+
+  // Feb 2026 starts on Sunday → getDay() = 0, so no empty boxes needed
+  // But we calculate it properly so this works for any month
+  const firstDayOfWeek = new Date(2026, 1, 1).getDay();
+  const daysInMonth = 28; // Feb 2026
+
+  // Build array of empty slots for days before the 1st
+  // e.g. if month starts on Wednesday, we need 3 empty boxes first
+  const emptySlots = Array.from({ length: firstDayOfWeek }, (_, i) => i);
+
+  // Build array of all days in the month
+  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+
+  return (
+    <div className="cal-box">
+      <div className="cal-month">February 2026</div>
+      <div className="cal-grid">
+        {/* Empty slots before day 1 */}
+        {emptySlots.map((i) => (
+          <div key={`empty-${i}`} className="cd" />
+        ))}
+
+        {/* Actual days */}
+        {days.map((day) => {
+          const isLogged = loggedDays.includes(day);
+          const isToday = day === today;
+
+          return (
+            <div
+              key={day}
+              className={`cd ${isLogged ? "cd--on" : "cd--off"} ${isToday ? "cd--today" : ""}`}
+            >
+              {/* 🔥 if logged, · if not */}
+              {isLogged ? "🔥" : "·"}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ── FEATURES DATA ────────────────────────────────────────
+// Array makes it easy to add/remove features later
+// Just add an object here and it renders automatically
+const features = [
+  {
+    icon: "💻",
+    name: "DSA Tracker",
+    desc: "Problems by pattern. Mark done, add notes, see progress per topic.",
+  },
+  {
+    icon: "🔥",
+    name: "Streak Calendar",
+    desc: "Every logged day lights up. Every gap reminds you to show up.",
+  },
+  {
+    icon: "📊",
+    name: "Readiness Score",
+    desc: "A live score out of 100 based on streak, problems, and consistency.",
+  },
+  {
+    icon: "📚",
+    name: "Core Subject Quiz",
+    desc: "Quick quizzes on OS, DBMS, CN and OOP to test theory knowledge.",
+  },
+  {
+    icon: "📅",
+    name: "Monthly Planner",
+    desc: "Set monthly goals, check them off. Keeps your plan visible.",
+  },
+  {
+    icon: "🏆",
+    name: "Leaderboard",
+    desc: "Rank among peers by consistency. Are you in the top 10%?",
+  },
+];
+
+// ── MAIN COMPONENT ───────────────────────────────────────
+function Landing() {
+  return (
+    <div className="landing">
+
+      {/* ── NAVBAR ── */}
+      <nav className="navbar">
+        <div className="nav-logo">
+          <Logo size={30} />
+          <span className="logo-name">
+            Pace<span className="logo-accent">Up</span>
+          </span>
+        </div>
+        <div className="nav-links">
+          <Link to="/login" className="btn-ghost">Login</Link>
+          <Link to="/register" className="btn-green">Get Started</Link>
+        </div>
+      </nav>
+
+      {/* ── HERO ── */}
+      <section className="hero">
+        <div className="badge">🎯 For placement-driven students</div>
+
+        <h1 className="hero-title">
+          Stop drifting.<br />
+          Start <em>building streaks.</em>
+        </h1>
+
+        <p className="hero-sub">
+          Track DSA problems, log daily progress, and see your
+          placement readiness score — all in one place.
+        </p>
+
+        <div className="hero-btns">
+          <Link to="/register" className="btn-big">Start Free →</Link>
+          <a href="#features" className="btn-big-outline">See Features</a>
+        </div>
+      </section>
+
+      {/* ── FEATURES ── */}
+      <section className="features" id="features">
+        {features.map((f) => (
+          <div key={f.name} className="feat-card">
+            <div className="feat-icon">{f.icon}</div>
+            <div className="feat-name">{f.name}</div>
+            <div className="feat-desc">{f.desc}</div>
+          </div>
+        ))}
+      </section>
+
+      {/* ── CALENDAR PREVIEW ── */}
+      <section className="cal-section">
+        <div className="cal-text">
+          <h2>Your month,<br />at a glance</h2>
+          <p>
+            Every logged day lights up as 🔥.<br />
+            Every gap is an honest reminder.<br />
+            Simple. No hiding from it.
+          </p>
+        </div>
+        <CalendarPreview />
+      </section>
+
+      {/* ── CTA ── */}
+      <section className="cta">
+        <h2>Ready to PaceUp?</h2>
+        <p>Free to use. No excuses.</p>
+        <Link to="/register" className="btn-big">Create Your Account →</Link>
+      </section>
+
+      {/* ── FOOTER ── */}
+      <footer className="footer">
+        <div className="nav-logo">
+          <Logo size={22} />
+          <span className="logo-name" style={{ fontSize: "0.85rem" }}>
+            Pace<span className="logo-accent">Up</span>
+          </span>
+        </div>
+        <span className="footer-copy">Built by Venkatesh · 2026</span>
+      </footer>
+
+    </div>
+  );
+}
 
 export default Landing;

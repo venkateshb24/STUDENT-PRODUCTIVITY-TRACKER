@@ -1,5 +1,4 @@
 const mongoose=require("mongoose");
-const user = require("./user");
 
 const productivitySchema=new mongoose.Schema({
     userId:{
@@ -8,7 +7,7 @@ const productivitySchema=new mongoose.Schema({
         required:true
     },
     date:{
-        type:String,
+        type:Date,
         required:true
     },
     dsaCount:{
@@ -24,4 +23,6 @@ const productivitySchema=new mongoose.Schema({
     }
 });
 
-module.exports=mongoose.model("Productivity",productivitySchema);
+productivitySchema.index({ userId: 1, date: 1 }, { unique: true });
+
+module.exports = mongoose.models.Productivity || mongoose.model("Productivity", productivitySchema);

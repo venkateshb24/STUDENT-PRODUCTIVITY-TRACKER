@@ -12,7 +12,13 @@ connectDB();
 
 app.use("/auth", require("./routes/authRoutes"));
 app.use("/productivity", require("./routes/productivityRoutes"));
+app.use("/dsa", require("./routes/DsaRoutes"));
+app.use("/planner", require("./routes/PlannerRoutes"));
+app.use("/leaderboard", require("./routes/LeaderboardRoutes"));
+app.use("/quiz", require("./routes/QuizRoutes"));
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
